@@ -3,13 +3,20 @@ const cookieparser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
+const adminRoute = require("./routes/admin");
+const authRoute = require("./routes/auth");
+
 const PORT = process.env.PORT;
 
 const app = express();
 
+app.set("view engine", "ejs");
+
 app.use(cookieparser());
 
 // routes are placed here
+app.use("/dashboard", adminRoute);
+app.use("/auth", authRoute);
 app.get('/', (req, res)=>{
 	// creating token
 	const token = jwt.sign({id : 2, role : "admin"}, process.env.SECRET_KEY);
