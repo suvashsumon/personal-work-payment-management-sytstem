@@ -3,11 +3,19 @@ const Client = require("../models/client");
 const ClientProject = require("../models/client_project");
 
 exports.createAdmin = (req, res)=>{
-    Users.create(req.body).then((resp)=>{
-        res.json({ message : "Admin created successfully"});
-    }).catch((err)=>{
-        res.json({ message : "cannot create admin"});
-    });
+    if(req.body.App_Secret_Key == process.env.SECRET_KEY)
+    {
+        Users.create(req.body).then((resp)=>{
+            res.json({ message : "Admin created successfully"});
+        }).catch((err)=>{
+            res.json({ message : "cannot create admin"});
+        });
+    }
+    else
+    {
+        res.json({ message : "Authentication failed!"});
+    }
+    
 };
 
 exports.addClient = (req, res)=>{

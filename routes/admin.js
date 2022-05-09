@@ -8,7 +8,7 @@ adminRoute.get("/", isAuthenticated, (req, res)=>{
     res.json({ msg : "this is dashboard" });
 });
 
-adminRoute.post("/create-admin", createAdmin);
+//adminRoute.post("/create-admin", createAdmin);
 
 adminRoute.post("/add-client", addClient);
 adminRoute.post("/add-project", addProject);

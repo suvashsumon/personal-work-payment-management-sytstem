@@ -8,6 +8,7 @@ require("dotenv").config();
 
 const adminRoute = require("./routes/admin");
 const authRoute = require("./routes/auth");
+const utilRoute = require("./routes/utilRoute");
 
 const loginController = require("./controllers/auth");
 
@@ -30,6 +31,7 @@ app.use(cookieparser());
 // routes are placed here
 app.use("/dashboard", adminRoute);
 app.use("/auth", authRoute);
+app.use("/create-admin", utilRoute);
 app.get('/', (req, res)=>{
   res.render("login");
 });
