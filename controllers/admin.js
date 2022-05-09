@@ -20,11 +20,18 @@ exports.createAdmin = (req, res)=>{
 
 exports.addClient = (req, res)=>{
     Client.create(req.body).then((resp)=>{
-        res.json({ message : "Client created successfully"});
+        //res.json({ message : "Client created successfully"});
+        req.flash('success', 'Success!!');
+        res.redirect('/dashboard/add-client');
     }).catch((err)=>{
+        console.log(err);
         res.json({ message : "cannot create Client"});
     });
 };
+
+exports.addClientView = (req, res)=>{
+    res.render("addclient");
+}
 
 exports.addProject = async (req, res)=>{
     let {title, description, notes, requried_times, bill, paid, client} = req.body;

@@ -4,6 +4,8 @@ const jwt = require("jsonwebtoken");
 const bodyParser = require("body-parser");
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
+const session = require('express-session');
+const flash = require('connect-flash');
 require("dotenv").config();
 
 const adminRoute = require("./routes/admin");
@@ -27,6 +29,16 @@ app.set("view engine", "ejs");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieparser());
+app.use(session({
+  secret:'myownproject',
+  saveUninitialized: true,
+  resave: true
+}));
+app.use(flash());
+app.use(function(req, res, next){
+  res.locals.message = req.flash();
+  next();
+});
 
 // routes are placed here
 app.use("/dashboard", adminRoute);
