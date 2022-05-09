@@ -52,3 +52,12 @@ exports.addProject = async (req, res)=>{
         console.log(err);
     }
 };
+
+exports.getClient = (req, res)=>{
+    console.log(req.params);
+    Client.findOne({_id: req.params.id}).populate('projects').then((client)=>{
+        res.json(client);
+    }).catch((err)=>{
+        res.json(err);
+    });
+};
