@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>View and Add Clients</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="card mt-3">
+      <div class="card-header">
+          <div class="row">
+            <div class="col-md-10"><span>Add New Project of <span class="badge badge-dark"><%= client.name %></span></span></div>
+            <div class="col-md-2 text-right"><a href="/dashboard">Home</a></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <% if(message.success) { %>
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <%= message.success %>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <% } %>
+
+            <form action="/dashboard/add-project/<%= client._id %>" method="post">
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="exampleInputEmail1">Title</label>
+                  <input type="text" class="form-control form-control-sm" id="exampleInputEmail1"
+                    aria-describedby="emailHelp" name="title">
+                </div>
+                <div class="form-group col-md-2">
+                  <label for="exampleInputPassword1">Required Times</label>
+                  <input type="text" class="form-control form-control-sm" id="exampleInputPassword1" name="requried_times">
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="exampleInputPassword1">Bill</label>
+                    <input type="text" class="form-control form-control-sm" id="exampleInputPassword1" name="bill">
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="exampleInputPassword1">Date</label>
+                    <input type="date" class="form-control form-control-sm" id="exampleInputPassword1" name="date">
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="exampleInputEmail1">Description</label>
+                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description"></textarea>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="exampleInputPassword1">Notes</label>
+                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="notes"></textarea>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-sm btn-primary">Add New Project</button>
+            </form>
+      </div>
+    </div>
+
+    <!-- table of Client Project -->
+
+    <div class="card mt-5 mb-5">
+      <div class="card-header">
+        <span>Project List of <span class="badge badge-dark"><%= client.name %></span></span>
+      </div>
+      <div class="card-body">
+        <table id="client-datatable" class="table table-sm table-striped table-bordered" style="width:100%">
+          <thead>
+            <tr>
+              <th>Is Paid</th>
+              <th>Date</th>
+              <th>Title</th>
+              <th>Description</th>
+              <th>Notes</th>
+              <th>Required Time</th>
+              <th>Bill</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% projects.forEach(project => { %>
+            <tr>
+                <td class="text-center">
+                    <% if(project.paid == true){ %>
+                      <span class="badge badge-success">Paid</span>
+                    <% } else { %>
+                        <a class="btn btn-sm btn-warning" href="/dashboard/add-project/<%= project._id %>">Due</a>
+                    <% } %>
+                </td>
+              <td><%= project.date %></td>
+              <td><%= project.title %></td>
+              <td><%= project.description %></td>
+              <td><%= project.notes %></td>
+              <td><%= project.requried_times %></td>
+              <td><%= project.bill %></td>
+            </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</body>
+
+
+<script>
+  $(document).ready(function() {
+    $('#client-datatable').DataTable();
+} );
+</script>
+</html>

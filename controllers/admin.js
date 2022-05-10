@@ -37,8 +37,19 @@ exports.addClientView = (req, res)=>{
     });
 }
 
+
+exports.addProjectView = (req, res)=>{
+    ClientProject.find({client : req.params.id}).then((clientprojects)=>{
+        Client.findById(req.params.id).then((client)=>{
+            res.render("addProject", { projects : clientprojects, client : client});
+        });
+    }).catch((err)=>{
+        res.json({ massge : "error occured"});
+    });
+};
+
 exports.addProject = async (req, res)=>{
-    let {title, description, notes, requried_times, bill, paid, client} = req.body;
+    let {title, description, notes, requried_times, bill, paid, date} = req.body;
     try{
         let project = new ClientProject({
             title : title,
@@ -47,18 +58,17 @@ exports.addProject = async (req, res)=>{
             requried_times : requried_times,
             bill : bill,
             paid : paid,
-            client : client
+            date : date,
+            client : req.params.id
         });
     
         let addProject = await project.save();
         //res.json(addProject);
         await Client.findOneAndUpdate(
-            {_id: client},
+            {_id: req.params.id},
             { $push : { 'projects' : addProject._id}}
         );
-        res.json({
-            message : "Project added Successfully"
-        });
+        res.redirect("/dashboard/add-project/"+req.params.id);
     } catch(err){
         console.log(err);
     }

@@ -9,6 +9,7 @@ const clientProjectSchema = new Schema({
     requried_times : {type: String, required : true},
     bill : {type: Number, required : true},
     paid : {type: Boolean, default : false},
+    date : {type: String, required : true},
     client : {
         type: Schema.Types.ObjectId,
         ref: 'User',
