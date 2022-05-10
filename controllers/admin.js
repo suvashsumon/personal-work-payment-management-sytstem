@@ -118,8 +118,9 @@ exports.createInvoice = async (req, res) => {
     let year = date_ob.getFullYear();
     let today_date = date + " " + months[month] + ", " + year;
 
+    let invoice_no = Math.floor(Math.random() * 100000);
 
-    ejs.renderFile(path.join(__dirname, '../views/', "invoicetemplate.ejs"), { projects: client_project, client: client, total_bill: total, today : today_date }, (err, data) => {
+    ejs.renderFile(path.join(__dirname, '../views/', "invoicetemplate.ejs"), { projects: client_project, client: client, total_bill: total, today : today_date, invoice_no : invoice_no }, (err, data) => {
         if (err) {
             console.log(err);
             res.json({ message: "error occured to open template." });

@@ -20,23 +20,31 @@
             margin-right: 50px;
         }
 
+        .heading {
+            color: lightseagreen;
+        }
+
+        .head-title {
+            font-size: 1.8rem;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
         }
         th {
-            background-color: black;
+            background-color: lightseagreen;
             color: white;
-            border: 2px solid black;
+            border: 2px solid lightseagreen;
         }
 
         table,
         td{
-            border: 2px solid;
+            border: 2px solid lightseagreen;
         }
 
         hr {
-            border: 1px solid black;
+            border: 1px solid lightseagreen;
         }
 
         .bill {
@@ -66,6 +74,9 @@
 </head>
 
 <body>
+    <div class="heading">
+        <div class="content"><span class="head-title">INVOICE #<%= invoice_no %></span></div>
+    </div>
     <div class="content">
         <div class="to">
             <span>Date : <%= today %></span><br><br>
@@ -76,8 +87,7 @@
             <span>Email : <%= client.email %></span>
         </div>
         <div class="message">
-            <p>Dear sir,<br>You have followings due payment(s). You are requested to pay immidiately using any payment
-                method states bellow after getting this letter. Thank you.</p>
+            <p>Dear sir,<br>You have the following due payment(s). You are requested to pay immediately using any payment method stated below after getting this letter. Thank you.</p>
         </div>
         <div class="from">
             <span>Your Sincerely,</span><br>
@@ -99,13 +109,13 @@
                         <tr>
                             <td><%= project.date %></td>
                             <td><%= project.title %></td>
-                            <td class="bill"><%= project.bill %></td>
+                            <td class="bill"><%= project.bill %>/=</td>
                         </tr>
                     <% }); %>
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="3" class="bill total"><b>Total = <%= total_bill %></b></td>
+                        <td colspan="3" class="bill total"><b>Total = <%= total_bill %>/=</b></td>
                     </tr>
                 </tfoot>
             </table>

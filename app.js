@@ -15,7 +15,7 @@ const utilRoute = require("./routes/utilRoute");
 
 const loginController = require("./controllers/auth");
 
-const conn = mongoose.connect(process.env.DATABASE_URL_PUBLIC);
+const conn = mongoose.connect(process.env.DATABASE_URL_LOCAL);
 conn.then((db)=>{
   console.log("Successfully connect to database.");
 }, (err)=>{
