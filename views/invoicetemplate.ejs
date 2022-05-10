@@ -12,6 +12,7 @@
     <style>
         body {
             font-family: 'Nanum Myeongjo', serif;
+            font-size: .8rem;
         }
 
         .content {
@@ -42,6 +43,10 @@
             text-align: right;
         }
 
+        .total {
+            font-size: 1.2rem;
+        }
+
         .projects {
             margin-top: 50px;
         }
@@ -53,18 +58,22 @@
         .message {
             text-align: justify;
         }
+
+        .payments {
+            font-size: .7rem;
+        }
     </style>
 </head>
 
 <body>
     <div class="content">
         <div class="to">
-            <span>Date : 12 May, 2022</span><br><br>
+            <span>Date : <%= today %></span><br><br>
             <span>To</span><br>
-            <span><b>Azfar Sarkar</b></span><br>
-            <span>CSE, Varendera University</span><br>
-            <span>Phone : 934028402</span><br>
-            <span>Email : klsfjslfjsl@jfslf.com</span>
+            <span><b><%= client.name %></b></span><br>
+            <span><%= client.academic_info %></span><br>
+            <span>Phone : <%= client.phone %></span><br>
+            <span>Email : <%= client.email %></span>
         </div>
         <div class="message">
             <p>Dear sir,<br>You have followings due payment(s). You are requested to pay immidiately using any payment
@@ -86,15 +95,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>2022-05-12</td>
-                        <td>BUET Guestroom Project</td>
-                        <td class="bill">2500.50</td>
-                    </tr>
+                    <% projects.forEach((project)=>{ %>
+                        <tr>
+                            <td><%= project.date %></td>
+                            <td><%= project.title %></td>
+                            <td class="bill"><%= project.bill %></td>
+                        </tr>
+                    <% }); %>
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="3" class="bill"><b>Total = 2500.50</b></td>
+                        <td colspan="3" class="bill total"><b>Total = <%= total_bill %></b></td>
                     </tr>
                 </tfoot>
             </table>
@@ -102,8 +113,8 @@
         <div class="payment-method">
             <span><b>Payment Methods</b></span><br>
             <hr>
-            <span>Dutch Bangla Bank Account No. : 701 741 117 8101</span><br>
-            <span>Rocket/BKash/Nagad : 01717-601509</span><br>
+            <p class="payments">Dutch Bangla Bank Account No. : 701 741 117 8101<br>
+            Rocket/BKash/Nagad : 01717-601509</p>
         </div>
     </div>
 </body>

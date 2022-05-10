@@ -73,7 +73,10 @@
 
     <div class="card mt-5 mb-5">
       <div class="card-header">
-        <span>Project List of <span class="badge badge-dark"><%= client.name %></span></span>
+        <div class="row">
+          <div class="col-md-10"><span>Project list of <span class="badge badge-dark"><%= client.name %></span></span></div>
+          <div class="col-md-2 text-right"><a class="btn btn-sm btn-info" href="/dashboard/create-invoice/<%= client._id %>">Print Invoice</a></div>
+      </div>
       </div>
       <div class="card-body">
         <table id="client-datatable" class="table table-sm table-striped table-bordered" style="width:100%">
