@@ -9,9 +9,9 @@ adminRoute.get("/", isAuthenticated, (req, res)=>{
 });
 
 
-adminRoute.post("/add-client", addClient);
-adminRoute.get("/add-client", addClientView);
-adminRoute.post("/add-project", addProject);
-adminRoute.get("/get-client/:id", getClient);
+adminRoute.post("/add-client", isAuthenticated, addClient);
+adminRoute.get("/add-client", isAuthenticated, addClientView);
+adminRoute.post("/add-project", isAuthenticated, addProject);
+adminRoute.get("/get-client/:id", isAuthenticated, getClient);
 
 module.exports = adminRoute;
