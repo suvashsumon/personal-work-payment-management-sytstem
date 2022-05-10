@@ -30,7 +30,11 @@ exports.addClient = (req, res)=>{
 };
 
 exports.addClientView = (req, res)=>{
-    res.render("addclient");
+    Client.find({}).then((clients)=>{
+        res.render("addclient", {clients : clients});
+    }).catch((err)=>{
+        res.json({ message : "error occures"});
+    });
 }
 
 exports.addProject = async (req, res)=>{

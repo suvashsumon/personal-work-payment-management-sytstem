@@ -5,7 +5,7 @@ const {isAuthenticated} = require("../middlewares/auth");
 const adminRoute = express.Router();
 
 adminRoute.get("/", isAuthenticated, (req, res)=>{
-    res.json({ msg : "this is dashboard" });
+    res.render("home");
 });
 
 
