@@ -6,6 +6,7 @@ const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 const session = require('express-session');
 const flash = require('connect-flash');
+let pdf = require("html-pdf");
 require("dotenv").config();
 
 const adminRoute = require("./routes/admin");
@@ -27,6 +28,7 @@ const app = express();
 
 app.set("view engine", "ejs");
 app.use(bodyParser.json());
+app.use('/invoices', express.static(__dirname + '/invoices'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieparser());
 app.use(session({

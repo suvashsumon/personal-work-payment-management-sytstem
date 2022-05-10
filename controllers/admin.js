@@ -1,5 +1,8 @@
 const Users = require("../models/user");
 const Client = require("../models/client");
+const ejs = require("ejs");
+let path = require("path");
+let pdf = require("html-pdf");
 const ClientProject = require("../models/client_project");
 
 exports.createAdmin = (req, res)=>{
@@ -91,5 +94,35 @@ exports.setPaid = async (req, res)=>{
     }).catch((err)=>{
         console.log(err);
         res.json({ message : "error occurs" });
+    });
+};
+
+exports.createInvoice = (req, res)=>{
+    //res.render("invoicetemplate");
+    ejs.renderFile(path.join(__dirname, '../views/', "invoicetemplate.ejs"), {}, (err, data)=>{
+        if(err){
+            console.log(err);
+            res.json({ message : "error occured to open template."});
+        } else {
+            let options = {
+                "height": "11.25in",
+                "width": "8.5in",
+                "header": {
+                    "height": "20mm"
+                },
+                "footer": {
+                    "height": "20mm",
+                },
+            };
+            pdf.create(data, options).toFile("invoices/invoice.pdf", function (err, data) {
+                if (err) {
+                    console.log(err);
+                    res.json({ message : "error occured to create invoice."});
+                } else {
+                    //res.send("File created successfully");
+                    res.redirect("/invoices/invoice.pdf");
+                }
+            });
+        }
     });
 };
