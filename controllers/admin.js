@@ -21,7 +21,7 @@ exports.createAdmin = (req, res)=>{
 exports.addClient = (req, res)=>{
     Client.create(req.body).then((resp)=>{
         //res.json({ message : "Client created successfully"});
-        req.flash('success', 'Success!!');
+        req.flash('success', 'New client added successfully!!');
         res.redirect('/dashboard/add-client');
     }).catch((err)=>{
         console.log(err);
@@ -68,6 +68,7 @@ exports.addProject = async (req, res)=>{
             {_id: req.params.id},
             { $push : { 'projects' : addProject._id}}
         );
+        req.flash('success', 'Project added successfully!!');
         res.redirect("/dashboard/add-project/"+req.params.id);
     } catch(err){
         console.log(err);
