@@ -82,3 +82,13 @@ exports.getClient = (req, res)=>{
         res.json(err);
     });
 };
+
+exports.setPaid = async (req, res)=>{
+    ClientProject.findOneAndUpdate({_id : req.params.id}, { paid : true}).then((clientproject)=>{
+        console.log(clientproject);
+        res.redirect("/dashboard/add-project/"+clientproject.client);
+    }).catch((err)=>{
+        console.log(err);
+        res.json({ message : "error occurs" });
+    });
+};

@@ -95,7 +95,7 @@
                     <% if(project.paid == true){ %>
                       <span class="badge badge-success">Paid</span>
                     <% } else { %>
-                        <a class="btn btn-sm btn-warning" href="/dashboard/add-project/<%= project._id %>">Due</a>
+                        <a class="btn btn-sm btn-warning" href="/dashboard/set-paid/<%= project._id %>">Due</a>
                     <% } %>
                 </td>
               <td><%= project.date %></td>
