@@ -13,19 +13,23 @@ const jwt = require("jsonwebtoken");
 // 	res.json({message : "Cookie set successfully."});
 // };
 
-exports.signInController = (req, res)=>{
-	Users.findOne({username : req.body.username, password : req.body.password}).then((user)=>{
+exports.signInController = async (req, res)=>{
+	console.log(req.body.username);
+	console.log(req.body.password);
+	let user = await Users.findOne({username : req.body.username, password : req.body.password});
+	//console.log(user[0].username);
+	if(user){
 		console.log("i am find user");
+		//return res.json(user);
 		const token = jwt.sign({ id : user._id, username : user.username}, process.env.SECRET_KEY);
 		res.cookie("access_token", token, {
 			httpOnly : true
 		});
 		res.redirect("/dashboard");
-	}).catch((err)=>{
+	}else{
 		console.log("could not find user");
-		console.log(err);
 		res.redirect("/auth/login");
-	});
+	}
 };
 
 exports.logOutController = (req, res)=>{
