@@ -147,3 +147,8 @@ exports.createInvoice = async (req, res) => {
         }
     });
 };
+
+
+exports.addCourseView = (req, res)=>{
+    res.render("addcourse");
+};
