@@ -113,8 +113,8 @@ exports.createInvoice = async (req, res) => {
 
 
     let ts = Date.now();
-    let months = ["January","February","March","April","May","June","July",
-    "August","September","October","November","December"];
+    let months = ["January", "February", "March", "April", "May", "June", "July",
+        "August", "September", "October", "November", "December"];
     let date_ob = new Date(ts);
     let date = date_ob.getDate();
     let month = date_ob.getMonth();
@@ -123,7 +123,7 @@ exports.createInvoice = async (req, res) => {
 
     let invoice_no = Math.floor(Math.random() * 100000);
 
-    ejs.renderFile(path.join(__dirname, '../views/', "invoicetemplate.ejs"), { projects: client_project, client: client, total_bill: total, today : today_date, invoice_no : invoice_no }, (err, data) => {
+    ejs.renderFile(path.join(__dirname, '../views/', "invoicetemplate.ejs"), { projects: client_project, client: client, total_bill: total, today: today_date, invoice_no: invoice_no }, (err, data) => {
         if (err) {
             console.log(err);
             res.json({ message: "error occured to open template." });
@@ -152,37 +152,45 @@ exports.createInvoice = async (req, res) => {
 };
 
 
-exports.addCourseView = (req, res)=>{
-    Course.find({}).then((courses)=>{
-        res.render("addcourse", {"courses" : courses});
+exports.addCourseView = (req, res) => {
+    Course.find({}).then((courses) => {
+        res.render("addcourse", { "courses": courses });
     });
 };
 
-exports.addCourse = (req, res)=>{
-    Course.create(req.body).then((course)=>{
+exports.addCourse = (req, res) => {
+    Course.create(req.body).then((course) => {
         req.flash('success', 'Course added successfully!!');
         res.redirect("/dashboard/course-list");
     });
 };
 
 
-exports.countAttendenceView = async (req, res)=>{
-    let course = await Course.findOne({_id : req.params.id});
+exports.countAttendenceView = async (req, res) => {
+    let course = await Course.findOne({ _id: req.params.id });
     //console.log(course.title);
-    let courseattendence = await CourseAttendence.find({course : req.params.id});
-    res.render("countattendence", {"countattencences" : courseattendence, "course_title" : course.title, "course_id" : req.params.id});
+    let courseattendence = await CourseAttendence.find({ course: req.params.id });
+
+    let persentage = 0;
+    let total = 0;
+    courseattendence.forEach((coat) => {
+        if (coat.is_present) persentage++, total++;
+        else total++;
+    });
+    persentage = persentage * 100 / total;
+    res.render("countattendence", { "countattencences": courseattendence, "course_title": course.title, "course_id": req.params.id, "persentage" :  persentage});
 };
 
 
-exports.updateAttendence = async (req, res)=>{
-    let {date, is_present, notes} = req.body;
+exports.updateAttendence = async (req, res) => {
+    let { date, is_present, notes } = req.body;
     let attendence = {
-        date : date,
-        is_present : is_present,
-        notes : notes,
-        course : req.params.id
+        date: date,
+        is_present: is_present,
+        notes: notes,
+        course: req.params.id
     };
-    
+
     try {
         let att = await CourseAttendence.create(attendence);
         await Course.findOneAndUpdate(
@@ -190,7 +198,7 @@ exports.updateAttendence = async (req, res)=>{
             { $push: { 'attendence': att._id } }
         );
         req.flash('success', 'Attendence added successfully!!');
-        res.redirect("/dashboard/count-attendence/"+req.params.id);
+        res.redirect("/dashboard/count-attendence/" + req.params.id);
     } catch (error) {
         console.log(error);
     }
