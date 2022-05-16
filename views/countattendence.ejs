@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>View and Add Course</title>
+  <title>Count Attendence</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
@@ -19,7 +19,7 @@
     <div class="card mt-3">
       <div class="card-header">
         <div class="row">
-          <div class="col-md-10">Add New Course</div>
+          <div class="col-md-10">Update attendence of <span class="badge badge-dark"><%= course_title %></span></div>
           <div class="col-md-2 text-right"><a href="/dashboard">Home</a></div>
       </div>
     </div>
@@ -33,32 +33,27 @@
           </div>
           <% } %>
 
-            <form action="/dashboard/add-course" method="post">
+            <form action="/dashboard/update-attencence/<%= course_id %>" method="post">
               <div class="form-row">
                 <div class="form-group col-md-6">
-                  <label for="exampleInputEmail1">Course Title</label>
-                  <input type="text" class="form-control form-control-sm" id="exampleInputEmail1"
-                    aria-describedby="emailHelp" name="title">
+                  <label for="exampleInputEmail1">Date</label>
+                  <input type="date" class="form-control form-control-sm" id="exampleInputEmail1"
+                    aria-describedby="emailHelp" name="date">
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="exampleInputPassword1">Course Code</label>
-                  <input type="text" class="form-control form-control-sm" id="exampleInputPassword1" name="code">
+                  <label for="exampleInputPassword1">Is Present?</label>
+                  <select class="form-control form-control-sm" id="exampleFormControlSelect1" name="is_present">
+                    <option value="true">Present</option>
+                    <option value="false">Absent</option>
+                  </select>
                 </div>
               </div>
-
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="exampleInputEmail1">Course Credit</label>
-                  <input type="text" class="form-control form-control-sm" id="exampleInputEmail1"
-                    aria-describedby="emailHelp" name="credit">
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="exampleInputPassword1">Course Teacher</label>
-                  <input type="text" class="form-control form-control-sm" id="exampleInputPassword1"
-                    name="teacher">
-                </div>
-              </div>
-              <button type="submit" class="btn btn-sm btn-primary">Add New Course</button>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Note</label>
+                <input type="text" class="form-control form-control-sm" id="exampleInputEmail1"
+                  aria-describedby="emailHelp" name="notes">
+            </div>
+              <button type="submit" class="btn btn-sm btn-primary">Update Attendence</button>
             </form>
       </div>
     </div>
@@ -67,27 +62,25 @@
 
     <div class="card mt-5 mb-5">
       <div class="card-header">
-        <span>Course List</span>
+        <span>Attendence List of <span class="badge badge-dark"><%= course_title %></span></span>
       </div>
       <div class="card-body">
         <table id="client-datatable" class="table table-sm table-striped table-bordered" style="width:100%">
           <thead>
             <tr>
               <th>Action</th>
-              <th>Code</th>
-              <th>Title</th>
-              <th>Credit</th>
-              <th>Teacher</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th>Notes</th>
             </tr>
           </thead>
           <tbody>
-              <% courses.forEach((course)=>{ %>
+              <% countattencences.forEach((cnt)=>{ %>
             <tr>
-              <td><a class="btn btn-sm btn-warning" href="/dashboard/count-attendence/<%= course._id %>">View</a></td>
-              <td><%= course.code %></td>
-              <td><%= course.title %></td>
-              <td><%= course.credit %></td>
-              <td><%= course.teacher %></td>
+              <td><a class="btn btn-sm btn-warning" href="/dashboard/count-attendence/<%= cnt._id %>">View</a></td>
+              <td><%= cnt.date %></td>
+              <td><%= cnt.is_present %></td>
+              <td><%= cnt.notes %></td>
             </tr>
             <% }); %>
           </tbody>

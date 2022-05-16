@@ -1,9 +1,12 @@
-const Users = require("../models/user");
-const Client = require("../models/client");
 const ejs = require("ejs");
 let path = require("path");
 let pdf = require("html-pdf");
+
+const Users = require("../models/user");
+const Client = require("../models/client");
 const ClientProject = require("../models/client_project");
+const Course = require("../models/course");
+const CourseAttendence = require("../models/course_attendence");
 
 exports.createAdmin = (req, res) => {
     if (req.body.App_Secret_Key == process.env.SECRET_KEY) {
@@ -150,5 +153,45 @@ exports.createInvoice = async (req, res) => {
 
 
 exports.addCourseView = (req, res)=>{
-    res.render("addcourse");
+    Course.find({}).then((courses)=>{
+        res.render("addcourse", {"courses" : courses});
+    });
+};
+
+exports.addCourse = (req, res)=>{
+    Course.create(req.body).then((course)=>{
+        req.flash('success', 'Course added successfully!!');
+        res.redirect("/dashboard/course-list");
+    });
+};
+
+
+exports.countAttendenceView = async (req, res)=>{
+    let course = await Course.findOne({_id : req.params.id});
+    //console.log(course.title);
+    let courseattendence = await CourseAttendence.find({course : req.params.id});
+    res.render("countattendence", {"countattencences" : courseattendence, "course_title" : course.title, "course_id" : req.params.id});
+};
+
+
+exports.updateAttendence = async (req, res)=>{
+    let {date, is_present, notes} = req.body;
+    let attendence = {
+        date : date,
+        is_present : is_present,
+        notes : notes,
+        course : req.params.id
+    };
+    
+    try {
+        let att = await CourseAttendence.create(attendence);
+        await Course.findOneAndUpdate(
+            { _id: req.params.id },
+            { $push: { 'attendence': att._id } }
+        );
+        req.flash('success', 'Attendence added successfully!!');
+        res.redirect("/dashboard/count-attendence/"+req.params.id);
+    } catch (error) {
+        console.log(error);
+    }
 };
