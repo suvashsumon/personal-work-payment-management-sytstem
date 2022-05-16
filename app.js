@@ -29,6 +29,7 @@ const app = express();
 app.set("view engine", "ejs");
 app.use(bodyParser.json());
 app.use('/invoices', express.static(__dirname + '/invoices'));
+app.use('/public', express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieparser());
 app.use(session({
