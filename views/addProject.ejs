@@ -17,10 +17,10 @@
 <body>
   <div class="container">
     <div class="card mt-3">
-      <div class="card-header">
+      <div class="card-header bg-dark text-light">
           <div class="row">
-            <div class="col-md-10"><span>Add New Project of <span class="badge badge-dark"><%= client.name %></span></span></div>
-            <div class="col-md-2 text-right"><a href="/dashboard">Home</a></div>
+            <div class="col-md-10"><span>Add New Project of <span class="badge badge-light"><%= client.name %></span></span></div>
+            <div class="col-md-2 text-right"><a href="/dashboard/add-client">Back</a></div>
         </div>
       </div>
       <div class="card-body">
@@ -72,9 +72,9 @@
     <!-- table of Client Project -->
 
     <div class="card mt-5 mb-5">
-      <div class="card-header">
+      <div class="card-header bg-dark text-light">
         <div class="row">
-          <div class="col-md-10"><span>Project list of <span class="badge badge-dark"><%= client.name %></span></span></div>
+          <div class="col-md-10"><span>Project list of <span class="badge badge-light"><%= client.name %></span></span></div>
           <div class="col-md-2 text-right"><a class="btn btn-sm btn-info" href="/dashboard/create-invoice/<%= client._id %>">Print Invoice</a></div>
       </div>
       </div>
