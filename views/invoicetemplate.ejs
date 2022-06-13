@@ -32,6 +32,7 @@
             width: 100%;
             border-collapse: collapse;
         }
+
         th {
             background-color: lightseagreen;
             color: white;
@@ -39,7 +40,7 @@
         }
 
         table,
-        td{
+        td {
             border: 2px solid lightseagreen;
         }
 
@@ -81,13 +82,18 @@
         <div class="to">
             <span>Date : <%= today %></span><br><br>
             <span>To</span><br>
-            <span><b><%= client.name %></b></span><br>
-            <span><%= client.academic_info %></span><br>
+            <span><b>
+                    <%= client.name %>
+                </b></span><br>
+            <span>
+                <%= client.academic_info %>
+            </span><br>
             <span>Phone : <%= client.phone %></span><br>
             <span>Email : <%= client.email %></span>
         </div>
         <div class="message">
-            <p>Dear sir,<br>You have the following due payment(s). You are requested to pay immediately using any payment method stated below after getting this letter. Thank you.</p>
+            <p>Dear sir,<br>You have the following due payment(s). You are requested to pay immediately using any
+                payment method stated below after getting this letter. Thank you.</p>
         </div>
         <div class="from">
             <span>Your Sincerely,</span><br>
@@ -107,11 +113,17 @@
                 <tbody>
                     <% projects.forEach((project)=>{ %>
                         <tr>
-                            <td><%= project.date %></td>
-                            <td><%= project.title %></td>
-                            <td class="bill"><%= project.bill %>/=</td>
+                            <td>
+                                <%= project.date %>
+                            </td>
+                            <td>
+                                <%= project.title %>
+                            </td>
+                            <td class="bill">
+                                <%= project.bill %>/=
+                            </td>
                         </tr>
-                    <% }); %>
+                        <% }); %>
                 </tbody>
                 <tfoot>
                     <tr>
@@ -124,7 +136,7 @@
             <span><b>Payment Methods</b></span><br>
             <hr>
             <p class="payments">Dutch Bangla Bank Account No. : 701 741 117 8101<br>
-            Rocket/BKash/Nagad : 01717-601509</p>
+                Rocket/BKash/Nagad : 01717-601509</p>
         </div>
     </div>
 </body>
