@@ -1,5 +1,5 @@
 const express = require("express");
-const {addClient, addProject, addClientView, addProjectView, setPaid, createInvoice, addCourseView, addCourse, countAttendenceView, updateAttendence} = require("../controllers/admin");
+const {addClient, addProject, addClientView, addProjectView, setPaid, createInvoice, addCourseView, addCourse, countAttendenceView, updateAttendence, getFinanceHome, updateFinance, financeDelete} = require("../controllers/admin");
 const { getTutionIndex } = require("../controllers/tutioncontroler");
 const {isAuthenticated} = require("../middlewares/auth");
 
@@ -21,5 +21,8 @@ adminRoute.post("/add-course", isAuthenticated, addCourse);
 adminRoute.get("/count-attendence/:id", isAuthenticated, countAttendenceView);
 adminRoute.post("/update-attencence/:id", isAuthenticated, updateAttendence);
 adminRoute.get("/tution-assistant", isAuthenticated, getTutionIndex);
+adminRoute.get("/finance-home", isAuthenticated, getFinanceHome);
+adminRoute.post("/finance-update", isAuthenticated, updateFinance);
+adminRoute.get("/finance-delete/:id", isAuthenticated, financeDelete);
 
 module.exports = adminRoute;
