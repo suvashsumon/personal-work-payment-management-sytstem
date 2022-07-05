@@ -1,6 +1,6 @@
 const express = require("express");
 const {addClient, addProject, addClientView, addProjectView, setPaid, createInvoice, addCourseView, addCourse, countAttendenceView, updateAttendence, getFinanceHome, updateFinance, financeDelete} = require("../controllers/admin");
-const { getTutionIndex, addStudent, recordDate, postRecordDate } = require("../controllers/tutioncontroler");
+const { getTutionIndex, addStudent, recordDate, postRecordDate, postShowRecordBySearch } = require("../controllers/tutioncontroler");
 const {isAuthenticated} = require("../middlewares/auth");
 
 const adminRoute = express.Router();
@@ -27,5 +27,6 @@ adminRoute.get("/finance-delete/:id", isAuthenticated, financeDelete);
 adminRoute.post("/student-insert", isAuthenticated, addStudent);
 adminRoute.get("/date-rec/:id", isAuthenticated, recordDate);
 adminRoute.post("/record-date", isAuthenticated, postRecordDate);
+adminRoute.post("/get-record-list", isAuthenticated, postShowRecordBySearch);
 
 module.exports = adminRoute;

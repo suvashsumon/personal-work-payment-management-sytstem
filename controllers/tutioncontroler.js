@@ -76,3 +76,14 @@ exports.postRecordDate = async (req, res) => {
     console.log(error)
   }
 }
+
+exports.postShowRecordBySearch = async (req, res) => {
+    let {student, month, year} = req.body;
+    try {
+        let data = await TutionDate.find({month: month, year: year, student: student});
+        let st = await Student.findOne({_id : student});
+        res.render("tution_assistant/show_records.ejs", {"data" : data, "student" : st, "month" : month, "year" : year});
+    } catch (error) {
+        console.log(error);
+    }
+}
