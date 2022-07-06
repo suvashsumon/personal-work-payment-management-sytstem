@@ -19,6 +19,9 @@
           background-attachment: fixed;
           background-size: cover;
         }
+        .btn {
+            border-radius: 0px;
+        }
       </style>
 </head>
 
@@ -26,7 +29,7 @@
     <div class="modal fade" id="updateForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header bg-dark text-light">
               <h5 class="modal-title" id="exampleModalLongTitle">Update</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -83,23 +86,33 @@
     <div class="container">
         
         <div class="row mt-5">
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <div class="card">
                     <div class="card-header bg-dark text-light">
                       DBBL
                     </div>
                     <div class="card-body">
-                        <h2><%= balDBBL.toFixed(2) %> Tk</h2>
+                        <h4><%= balDBBL.toFixed(2) %></h4>
                     </div>
                   </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <div class="card">
                     <div class="card-header bg-dark text-light">
                       EBL
                     </div>
                     <div class="card-body">
-                      <h2><%= balEBL.toFixed(2) %> Tk</h2>
+                      <h4><%= balEBL.toFixed(2) %></h4>
+                    </div>
+                  </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card">
+                    <div class="card-header bg-dark text-light">
+                      IBBL
+                    </div>
+                    <div class="card-body">
+                        <h4><%= balIBBL.toFixed(2) %></h4>
                     </div>
                   </div>
             </div>
@@ -109,7 +122,7 @@
                       AB
                     </div>
                     <div class="card-body">
-                        <h2><%= balAB.toFixed(2) %> Tk</h2>
+                        <h4><%= balAB.toFixed(2) %></h4>
                     </div>
                   </div>
             </div>
@@ -119,7 +132,7 @@
                       Total
                     </div>
                     <div class="card-body">
-                        <h2><%= balDBBL+balEBL+balAB %> Tk</h2>
+                        <h4><%= totalBal.toFixed(2) %> TK</h4>
                     </div>
                   </div>
             </div>

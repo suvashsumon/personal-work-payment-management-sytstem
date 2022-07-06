@@ -266,7 +266,8 @@ exports.getFinanceHome = async (req, res) => {
       balDBBL: balDBBL,
       balEBL: balEBL,
       balAB: balAB,
-      balIBBL: balIBBL
+      balIBBL: balIBBL,
+      totalBal : balDBBL + balEBL + balAB + balIBBL
     })
   } catch (error) {
     console.log(error)
